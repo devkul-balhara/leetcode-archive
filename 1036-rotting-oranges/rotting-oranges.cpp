@@ -4,13 +4,13 @@ public:
         int ans = 0;
         queue<pair<int,int>> q; // {x,y}
         int n = grid.size(), m = grid[0].size(), fresh = 0, cnt = 0;
-        vector<vector<int>> vis(n,vector<int>(m,false));
+        // vector<vector<int>> vis(n,vector<int>(m,false));
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
                 if(grid[i][j] == 1) fresh++;
                 if(grid[i][j] == 2){
                     q.push({i,j});
-                    vis[i][j] = true;
+                    //vis[i][j] = true;
                 }
             }
         }
@@ -27,9 +27,10 @@ public:
                     int nx = x + xmov[k];
                     int ny = y + ymov[k];
                     if(nx >= 0 && nx < n && ny >= 0 && ny < m 
-                    && grid[nx][ny] == 1 && !vis[nx][ny]){
+                    && grid[nx][ny] == 1){
                         cnt++;
-                        vis[nx][ny] = true;
+                        //vis[nx][ny] = true;
+                        grid[nx][ny] = 2;
                         q.push({nx,ny});
                     }
                 }
