@@ -7,7 +7,7 @@ public:
         vector<vector<int>> ans(m,vector<int>(n));
         vector<int> xmov = {1,-1,0,0};
         vector<int> ymov = {0,0,1,-1};
-        queue<pair<int,int>> q; // {{x,y},distance}
+        queue<pair<int,int>> q; // {x,y}
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
                 if(mat[i][j] == 0){
