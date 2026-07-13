@@ -6,15 +6,18 @@ public:
         queue<int> q; 
         q.push(node);
         while(!q.empty()){
-            int curr_node = q.front();
-            int curr_color = color[curr_node];
-            q.pop();
-            for(auto i : graph[curr_node]){
-                if(color[i] == -1){
-                    q.push(i);
-                    color[i] = !curr_color;
+            int s = q.size();
+            for(int i = 0; i < s; i++){
+                int curr_node = q.front();
+                int curr_color = color[curr_node];
+                q.pop();
+                for(auto i : graph[curr_node]){
+                    if(color[i] == -1){
+                        q.push(i);
+                        color[i] = !curr_color;
+                    }
+                    else if(curr_color == color[i]) return false;
                 }
-                else if(curr_color == color[i]) return false;
             }
         }
         return true;
