@@ -1,45 +1,29 @@
-class DSU{
-    vector<int> rank,parent;
-    public:
-    DSU(int n){
-        rank.resize(n);
-        parent.resize(n);
-        for(int i = 0; i < n; i++){
-            parent[i] = i;
-            rank[i] = 1;
-        }
-    }
-    int get(int u){
-        if(parent[u] == u) return u;
-        else return parent[u] = get(parent[u]);
-    }
-    void unite(int u, int v){
-        int upu = get(u), upv = get(v);
-        if(upu != upv){
-            if(rank[upu] == rank[upv]){
-                parent[upv] = upu;
-                rank[upu]++;
-            }
-            else if(rank[upu] > rank[upv]) parent[upv] = upu;
-            else parent[upu] = upv;
-        }
-    }
-};
-
 class Solution {
 public:
+    void dfs(int node, vector<vector<int>>& adj, vector<bool>& vis) {
+        vis[node] = true;
+        for (int neighbor : adj[node]) {
+            if (!vis[neighbor]) {
+                dfs(neighbor, adj, vis);
+            }
+        }
+    }
+
     int makeConnected(int n, vector<vector<int>>& connections) {
-        DSU dsu(n);
-        int extra = 0, parts = 0;
-        for(auto i : connections){
-            int upu = dsu.get(i[0]), upv = dsu.get(i[1]);
-            if(upu == upv) extra++;
-            else dsu.unite(upu,upv);
+        if(connections.size() < n - 1) return -1;
+        vector<vector<int>> adj(n);
+        for (auto& conn : connections) {
+            adj[conn[0]].push_back(conn[1]);
+            adj[conn[1]].push_back(conn[0]); 
         }
-        for(int i = 0; i < n; i++){
-            if(dsu.get(i) == i) parts++;
+        vector<bool> vis(n, false);
+        int components = 0;
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                components++;
+                dfs(i, adj, vis); 
+            }
         }
-        if(extra >= parts-1) return parts-1;
-        else return -1;
+        return components - 1;
     }
 };
