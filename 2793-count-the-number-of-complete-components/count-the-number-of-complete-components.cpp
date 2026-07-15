@@ -1,12 +1,12 @@
 class Solution {
 public:
-    void dfs_len(vector<vector<int>>& adj, vector<bool>& vis, int node, int& len){
+    int dfs_len(vector<vector<int>>& adj, vector<bool>& vis, int node){
         vis[node] = true;
-        len++;
+        int len = 1;
         for(auto i : adj[node]){
-            if(!vis[i]) dfs_len(adj,vis,i,len);
+            if(!vis[i]) len += dfs_len(adj,vis,i);
         }
-        return;
+        return len;
     }
 
     bool dfs(vector<vector<int>>& adj, vector<bool>& vis, int node, int len){
@@ -27,13 +27,12 @@ public:
             adj[i[1]].push_back(i[0]);
         }
         vector<bool> vis(n,false);
-        int ans = 0, len = 0;
+        int ans = 0;
         for(int i = 0; i < n; i++){
             if(!vis[i]){
-                dfs_len(adj,vis,i,len);
+                int len = dfs_len(adj,vis,i);
                 vector<bool> vis2(n,false);
                 if(dfs(adj,vis2,i,len)) ans++;
-                len = 0;
             }
         }
         return ans;
