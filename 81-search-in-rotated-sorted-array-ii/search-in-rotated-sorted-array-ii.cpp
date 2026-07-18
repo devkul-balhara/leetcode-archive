@@ -10,14 +10,16 @@ public:
                 h--;
                 continue;
             }
-            else if(nums[mid] <= nums[h]){
+            else if(nums[mid] < nums[h]){
                 if(target > nums[mid] && target <= nums[h]) l = mid+1;
                 else h = mid-1;
             }
-            else{
+            else if(nums[mid] == nums[h]) h = mid-1;
+            else if(nums[mid] > nums[h]){
                 if(target >= nums[l] && target < nums[mid]) h = mid-1;
                 else l = mid+1;
             }
+            else l = mid+1;
         }
         return false;
     }
