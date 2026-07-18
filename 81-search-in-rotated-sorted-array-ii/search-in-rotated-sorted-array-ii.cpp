@@ -8,7 +8,6 @@ public:
             if(nums[l] == nums[mid] && nums[mid] == nums[h]) {
                 l++;
                 h--;
-                continue;
             }
             else if(nums[mid] < nums[h]){
                 if(target > nums[mid] && target <= nums[h]) l = mid+1;
