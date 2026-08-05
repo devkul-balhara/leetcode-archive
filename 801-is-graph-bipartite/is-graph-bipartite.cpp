@@ -8,15 +8,14 @@ public:
         while(!q.empty()){
             int s = q.size();
             for(int i = 0; i < s; i++){
-                int curr_node = q.front();
-                int curr_color = color[curr_node];
+                int curr = q.front();
                 q.pop();
-                for(auto i : graph[curr_node]){
+                for(auto i : graph[curr]){
                     if(color[i] == -1){
                         q.push(i);
-                        color[i] = !curr_color;
+                        color[i] = !color[curr];
                     }
-                    else if(curr_color == color[i]) return false;
+                    else if(color[curr] == color[i]) return false;
                 }
             }
         }
