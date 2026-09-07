@@ -10,12 +10,12 @@ public:
             for(int i = 0; i < s; i++){
                 int curr = q.front();
                 q.pop();
-                for(auto i : graph[curr]){
-                    if(color[i] == -1){
-                        q.push(i);
-                        color[i] = !color[curr];
+                for(auto n : graph[curr]){
+                    if(color[n] == -1){
+                        q.push(n);
+                        color[n] = !color[curr];
                     }
-                    else if(color[curr] == color[i]) return false;
+                    else if(color[curr] == color[n]) return false;
                 }
             }
         }
@@ -24,7 +24,7 @@ public:
 
     // dfs approach
     bool dfs(vector<vector<int>>& graph, vector<int>& color, int node){
-        for(auto i : graph[node]){
+        for(auto i : graph[node]){        
             if(color[i] == -1){
                 color[i] = !color[node];
                 if(!dfs(graph,color,i)) return false;
